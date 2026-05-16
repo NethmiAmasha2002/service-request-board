@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-syne: 'Syne', sans-serif;
+    --font-dm: 'DM Sans', sans-serif;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-dm);
+  }
+}
+
+@layer utilities {
+  .font-syne { font-family: var(--font-syne); }
+  .font-dm   { font-family: var(--font-dm); }
+}
