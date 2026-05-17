@@ -1,6 +1,7 @@
 "use client";
 export const dynamic = 'force-dynamic';
 
+import { Suspense } from "react";
 import { useEffect, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "../lib/api";
@@ -13,7 +14,7 @@ const CATEGORY_ICONS = {
   Plumbing: "🔧", Electrical: "⚡", Painting: "🎨", Joinery: "🪚", Other: "🔨",
 };
 
-export default function HomePage() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -186,5 +187,19 @@ export default function HomePage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <div className="grid gap-4 sm:grid-cols-2">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white rounded-2xl border border-stone-200 p-5 animate-pulse h-36" />
+        ))}
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }
