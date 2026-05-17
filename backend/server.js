@@ -30,14 +30,16 @@ app.use((req, res) => {
 // Global error handler (must be last)
 app.use(errorHandler);
 
-// Connect to MongoDB then start server
+// Connect to MongoDB — only start listening if run directly (not imported by tests)
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
     console.log("✅ Connected to MongoDB");
-    app.listen(PORT, () =>
-      console.log(`🚀 Server running on http://localhost:${PORT}`)
-    );
+    if (require.main === module) {
+      app.listen(PORT, () =>
+        console.log(`🚀 Server running on http://localhost:${PORT}`)
+      );
+    }
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err.message);
