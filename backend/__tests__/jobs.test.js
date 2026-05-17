@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const app = require("../server");
 const JobRequest = require("../models/JobRequest");
 
-// Atlas can be slow — give it 30 seconds
+
 jest.setTimeout(30000);
 
 let authToken = "";
 
 beforeAll(async () => {
-  // server.js connects to MongoDB when required — wait until it's ready
+  
   let attempts = 0;
   while (mongoose.connection.readyState !== 1 && attempts < 20) {
     await new Promise((r) => setTimeout(r, 500));
@@ -36,7 +36,7 @@ beforeAll(async () => {
   }
 });
 
-// Wipe jobs between every test so they don't bleed into each other
+// Wipe jobs between every test 
 afterEach(async () => {
   await JobRequest.deleteMany({});
 });
@@ -51,7 +51,7 @@ function withAuth(req) {
   return req.set("Authorization", `Bearer ${authToken}`);
 }
 
-// ─────────────────────────────────────────────────────────
+
 describe("GET /api/jobs", () => {
   it("returns an empty array when no jobs exist", async () => {
     const res = await request(app).get("/api/jobs");
@@ -93,7 +93,7 @@ describe("GET /api/jobs", () => {
   });
 });
 
-// ─────────────────────────────────────────────────────────
+
 describe("POST /api/jobs", () => {
   it("creates a new job with valid data", async () => {
     const payload = {
@@ -136,7 +136,7 @@ describe("POST /api/jobs", () => {
   });
 });
 
-// ─────────────────────────────────────────────────────────
+
 describe("PATCH /api/jobs/:id", () => {
   it("updates job status successfully", async () => {
     const job = await JobRequest.create({ title: "Fix tap", description: "Dripping tap" });
@@ -164,7 +164,7 @@ describe("PATCH /api/jobs/:id", () => {
   });
 });
 
-// ─────────────────────────────────────────────────────────
+
 describe("DELETE /api/jobs/:id", () => {
   it("deletes an existing job", async () => {
     const job = await JobRequest.create({ title: "Fix tap", description: "Dripping tap" });

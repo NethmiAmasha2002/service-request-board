@@ -1,4 +1,4 @@
-// Global error handler — catches anything passed to next(err)
+// Global error handler
 const errorHandler = (err, req, res, next) => {
   console.error(`[ERROR] ${err.message}`);
 

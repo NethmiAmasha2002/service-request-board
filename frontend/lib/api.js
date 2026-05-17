@@ -28,7 +28,7 @@ async function apiFetch(path, options = {}) {
 }
 
 export const api = {
-  // ── Jobs ─────────────────────────────────────────────
+  //  Jobs
   getJobs: (params = {}) => {
     const qs = new URLSearchParams(
       Object.fromEntries(Object.entries(params).filter(([, v]) => v))
@@ -41,9 +41,7 @@ export const api = {
   createJob: (body) =>
     apiFetch("/api/jobs", { method: "POST", body: JSON.stringify(body) }),
 
-  // Full update for edit page (PUT replaces all editable fields)
-  updateJob: (id, body) =>
-    apiFetch(`/api/jobs/${id}`, { method: "PUT", body: JSON.stringify(body) }),
+ 
 
   // Status-only patch
   updateStatus: (id, status) =>
@@ -54,7 +52,7 @@ export const api = {
 
   deleteJob: (id) => apiFetch(`/api/jobs/${id}`, { method: "DELETE" }),
 
-  // ── Auth ─────────────────────────────────────────────
+  // Auth 
   register: (body) =>
     apiFetch("/api/auth/register", { method: "POST", body: JSON.stringify(body) }),
 

@@ -12,7 +12,7 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/service-board";
 
 // Middleware
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3000" }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // Health check
@@ -27,10 +27,10 @@ app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
 
-// Global error handler (must be last)
+// Global error handler 
 app.use(errorHandler);
 
-// Connect to MongoDB — only start listening if run directly (not imported by tests)
+// Connect to MongoDB 
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
